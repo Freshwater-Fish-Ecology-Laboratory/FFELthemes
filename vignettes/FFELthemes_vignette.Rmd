@@ -1,0 +1,113 @@
+---
+title: "FFELthemes"
+author: "UNBC Freshwater Fish Ecology Laboratory"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{FFELthemes}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+library(ggplot2)
+library(FFELthemes) # Even without downloading the package, if you run devtools::build_vignette(), R will temporarily install FFELthemes. To actually have access to the functions for the vignette building, you'll need to use the library() command. This is a bit more confusing once you are actually creating a vignette for CRAN.
+```
+
+## Development Notes/To Do:
+
+-   Adjust the vignette in .RMarkdown then use `devtools::build_vignette()` to generate the vignette in the `docs` folder. Note that Quarto isn't supported for vignettes at this time.
+
+-   I have quickly thrown in some examples here, but it would be great to create some more applicable/beautiful `ggplot` examples.
+
+-   For package development, as you create new functions remember to constantly use `devtools::document()`, `devtools::loal_all()`, and `devtools::check()` to make sure your additions are working and don't violate the package standards/requirements.
+
+## Overview
+
+The `FFELthemes` package generates custom themes and colour palettes for `ggplot2` plot objects.
+
+## Installation
+
+`FFELthemes` is installed from the FFEL GitHub page.
+
+```{r installation, eval = FALSE}
+devtools::install_github("username/packagename")
+library(packagename)
+```
+
+## Themes
+
+Apply a custom theme by adding `+ theme_ffel()` to a `ggplot2` object.
+
+```{r theme example, fig.height=5, fig.width=7}
+ggplot(mtcars, aes(mpg, disp)) +
+  geom_point(size = 4) +
+  facet_wrap(~cyl) +
+  theme_ffel()
+```
+
+### Adjusting Base Font Size
+
+The argument `base_size` from `theme_ffel` scales the size of plot text. The default size is 16, which is appropriate \~6 inch plots. For very large or small plots, `base_size` can be adjusted for readability.
+
+```{r base size example, fig.height=5, fig.width=7}
+ggplot(mtcars, aes(mpg, disp)) +
+  geom_point(size = 4) +
+  facet_wrap(~cyl) +
+  theme_ffel(base_size = 10)
+```
+
+### Overwriting the Theme
+
+Additional `theme` arguments can be used to overwrite portions of `theme_ffel`.
+
+```{r theme overwrite, fig.height=5, fig.width=7}
+ggplot(mtcars, aes(mpg, disp)) +
+  geom_point(size = 4) +
+  facet_wrap(~cyl) +
+  theme_ffel() +
+  theme(axis.text.x = element_text(color = "blue"),
+        panel.grid.major = element_line(),
+        panel.grid.minor = element_line())
+```
+
+## Colours
+
+Several colour palettes are available using the FFEL colour scheme.
+
+```{r show colours}
+scales::show_col(ffel_colours)
+```
+
+The colours can used in discrete or continuous applications. The colours are used by a palette generating function to create complementary palettes.
+
+Individual colours can be selected by name to customize plots.
+
+```{r select colours, fig.height=5, fig.width=7}
+ggplot(mtcars, aes(hp, mpg)) +
+  geom_point(color = ffel_cols("metalic blue"),
+             size = 3) +
+  theme_ffel()
+```
+
+Palettes can be selected by name and applied to fill or colour objects.
+
+```{r apply colour palettes, fig.height=5, fig.width=7}
+# View available palettes
+ffel_palettes
+
+ggplot(mpg, aes(manufacturer, fill = manufacturer)) +
+  geom_bar() +
+  scale_fill_ffel(palette = "main") +
+  theme_ffel() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+ggplot(iris, aes(Sepal.Width, Sepal.Length, color = Sepal.Length)) +
+  geom_point(size = 4) +
+  scale_colour_ffel(discrete = FALSE, palette = "two") +
+  theme_ffel()
+```
