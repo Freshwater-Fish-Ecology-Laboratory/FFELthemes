@@ -14,6 +14,7 @@ Customize plots using the FFEL colour scheme
 
 ## Installing the Package from GitHub
 - you can install a package on your computer (https://kbroman.org/pkg_primer/pages/build.html) but it is better for a collaborative package to develop the package, update GitHub, then install the package from GitHub
-- devtools::install_github("Freshwater-Fish-Ecology-Laboratory/FFELthemes") 
+- devtools::install_github("Freshwater-Fish-Ecology-Laboratory/FFELthemes", build_vignettes = TRUE) 
 - now you can use the package in any scripts using library(FFELthemes)
+- the vignette can be viewed using ??FFELthemes
 - don't forget to re-install the package frequently if it's under active development, and let people know when you've made improvements worthy of a new installation
