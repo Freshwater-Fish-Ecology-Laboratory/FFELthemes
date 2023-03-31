@@ -18,13 +18,21 @@ library(ggplot2)
 library(FFELthemes) # Even without downloading the package, if you run devtools::build_vignette(), R will temporarily install FFELthemes. To actually have access to the functions for the vignette building, you'll need to use the library() command. This is a bit more confusing once you are actually creating a vignette for CRAN.
 ```
 
-## Development Notes/To Do:
+#### Development Notes:
 
--   Adjust the vignette in .RMarkdown then use `devtools::build_vignette()` to generate the vignette in the `docs` folder. Note that Quarto isn't supported for vignettes at this time.
+-   For package development:
 
--   I have quickly thrown in some examples here, but it would be great to create some more applicable/beautiful `ggplot` examples.
+    -   Ajust functions and vignette.
 
--   For package development, as you create new functions remember to constantly use `devtools::document()`, `devtools::loal_all()`, and `devtools::check()` to make sure your additions are working and don't violate the package standards/requirements.
+    -   Use `devtools::document()`, to update documentation and NAMESPACCE.
+
+    -   Use `devtools::build_vignette()` to build and view the vignette in the `docs` folder.
+
+    -   Use `devtools::loal_all()` to temporily load the package and test functionality and help files.
+
+    -   Use `devtools::check()` to make sure your additions are working and don't violate the package standards/requirements.
+
+-   It would be great to develop additional colour schemes and create more applicable/beautiful `ggplot` examples.
 
 ## Overview
 
@@ -35,8 +43,8 @@ The `FFELthemes` package generates custom themes and colour palettes for `ggplot
 `FFELthemes` is installed from the FFEL GitHub page.
 
 ```{r installation, eval = FALSE}
-devtools::install_github("username/packagename")
-library(packagename)
+devtools::install_github("Freshwater-Fish-Ecology-Laboratory/FFELthemes")
+library(FFELthemes)
 ```
 
 ## Themes
